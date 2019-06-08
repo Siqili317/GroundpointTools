@@ -21,13 +21,11 @@ arcpy.env.extent = in_dem
 #CN RESAMPLE
 #______________________________________________________________________________
 
-cellsizex = arcpy.GetRasterProperties_management(in_dem, "CELLSIZEX")
-cellsizex = str(cellsizex.getOutput(0))
-cellsizey = arcpy.GetRasterProperties_management(in_dem, "CELLSIZEY")
-cellsizey = str(cellsizey.getOutput(0))
-arcpy.AddMessage(cellsizey)
+cellsizex = str(arcpy.GetRasterProperties_management(in_dem, "CELLSIZEX").getOutput(0))
+cellsizey = str(arcpy.GetRasterProperties_management(in_dem, "CELLSIZEY").getOutput(0))
+in_cn = SetNull(IsNull(in_dem),in_cn)
+##arcpy.AddMessage(cellsizey)
 cellsize = cellsizex + " " + cellsizey
 arcpy.Resample_management(in_cn, out_cn, cellsize, "BILINEAR")
-
 
 
